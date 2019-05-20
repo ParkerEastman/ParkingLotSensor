@@ -3,7 +3,8 @@ create database GarageDB
 use GarageDB
 
 create table Lot(
-	LotID int,	OwnerID int,
+	LotID int,	--Make Primary key
+	OwnerID int,
 	LotName nvarchar(64),
 	Lat float,
 	Long float,
@@ -33,8 +34,8 @@ create table Client(
 	PasswordVal nvarchar(128),  --make hashed value
 	FirstName nvarchar(32),
 	LastName nvarchar(32),
-	Email nvarchar(64))
-
+	Email nvarchar(64),
+	LotID int) -- make LotID FK on Lot.LotID
 
 	insert into Client (UserID, PasswordVal, FirstName, LastName, Email)
 	values(5749, 'P@ssword', 'Steve', 'Parker', 'SteveParker@company.com')
