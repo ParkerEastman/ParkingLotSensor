@@ -1,22 +1,52 @@
+drop database GarageDB
 create database GarageDB
 
 use GarageDB
 
+
+create table Client(
+	UserID int,
+	PasswordVal nvarchar(128),  --make hashed value
+	FirstName nvarchar(32),
+	LastName nvarchar(32),
+	Email nvarchar(64),
+	Primary key(UserID)
+
+	)
+
+
+
 create table Lot(
-	LotID int,	--Make Primary key
-	OwnerID int,
+	LotID int,	
+	Primary key (LotID),--Make Primary key
+	--OwnerID int,
 	LotName nvarchar(64),
 	Lat float,
 	Long float,
 	Website nvarchar(128),
 	NumOfSpaces int,
 	NumOfOccupants int,
-	Updated datetime)
+	Updated datetime,
+	OwnerID int foreign key references Client(UserID)
+
+	);
 
 
-			insert into Lot (LotID, OwnerID, LotName, Lat, Long, Website, NumOfSpaces, NumOfOccupants, Updated)
+
+
+		insert into Client (UserID, PasswordVal, FirstName, LastName, Email)
+	values(5749, 'P@ssword', 'Steve', 'Parker', 'SteveParker@company.com')
+
+	insert into Client (UserID, PasswordVal, FirstName, LastName, Email)
+	values(5750, '12345', 'Tony', 'Spamoni', 'TonysLot@Tony.com')
+
+	insert into Client (UserID, PasswordVal, FirstName, LastName, Email)
+	values(5751, 'S3cret$$$', 'Michael', 'Carr', 'MCMikah@somewhere.net')
+
+
+			insert into Lot (LotID, OwnerID,LotName, Lat, Long, Website, NumOfSpaces, NumOfOccupants, Updated)
 		values (0000001, 5749, 'Steve''s parking lot', 00, 00, 'www.stevesparkinglot.com', 150, 50, GETDATE());
-
+		
 		insert into Lot (LotID, OwnerID, LotName, Lat, Long, Website, NumOfSpaces, NumOfOccupants, Updated)
 		values (0000002, 5750, 'Tony''s Car lot', 00, 00, 'www.TonysCarLot.com', 75, 20, GETDATE());
 
@@ -29,22 +59,7 @@ create table Lot(
 
 
 
-create table Client(
-	UserID int,
-	PasswordVal nvarchar(128),  --make hashed value
-	FirstName nvarchar(32),
-	LastName nvarchar(32),
-	Email nvarchar(64),
-	LotID int) -- make LotID FK on Lot.LotID
 
-	insert into Client (UserID, PasswordVal, FirstName, LastName, Email)
-	values(5749, 'P@ssword', 'Steve', 'Parker', 'SteveParker@company.com')
-
-	insert into Client (UserID, PasswordVal, FirstName, LastName, Email)
-	values(5750, '12345', 'Tony', 'Spamoni', 'TonysLot@Tony.com')
-
-	insert into Client (UserID, PasswordVal, FirstName, LastName, Email)
-	values(5751, 'S3cret$$$', 'Michael', 'Carr', 'MCMikah@somewhere.net')
 
 
 
@@ -59,3 +74,4 @@ select * from Lot as L
 
 
 select * from Lot
+select * from Client
