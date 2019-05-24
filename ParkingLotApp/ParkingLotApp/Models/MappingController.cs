@@ -16,5 +16,10 @@ namespace ParkingLotApp.Models
             return View();
         }
 
+        public ActionResult Search()
+        {
+            return View();
+        }
+
     }
 }

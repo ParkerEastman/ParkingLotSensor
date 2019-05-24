@@ -26,5 +26,19 @@ namespace ParkingLotApp.Controllers
 
             return View();
         }
+
+        public ActionResult Search()
+        {
+            ViewBag.Message = "Locate Garages";
+
+            return View();
+        }
+
+        public ActionResult Locate()
+        {
+            ViewBag.Message = "My location";
+            return View();
+
+        }
     }
 }
