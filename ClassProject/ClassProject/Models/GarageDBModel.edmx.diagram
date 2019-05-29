@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="375bf169fda44f938e784a98273a918a" Name="Diagram1">
+        <EntityTypeShape EntityType="GarageDBModel.Client" Width="1.5" PointX="0.75" PointY="1.25" />
+        <EntityTypeShape EntityType="GarageDBModel.Lot" Width="1.5" PointX="3" PointY="1" />
+        <EntityTypeShape EntityType="GarageDBModel.sysdiagram" Width="1.5" PointX="0.75" PointY="4.75" />
+        <AssociationConnector Association="GarageDBModel.FK__Lot__OwnerID__4CA06362" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

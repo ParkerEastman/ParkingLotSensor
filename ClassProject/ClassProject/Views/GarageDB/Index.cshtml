@@ -1,0 +1,47 @@
+﻿@using ClassProject.Controllers;
+@using ClassProject.Models;
+
+@model IEnumerable<Lot>
+
+
+@{
+    /**/
+
+    ViewBag.Title = "All Garages";
+    string ApiKey = "AIzaSyCDUT350-nATdF2MA_ONI_l_1MYk7NQEQk ";//enter your google API key here
+}
+
+
+
+<h2>All Garages</h2>
+<div id="accordion">
+    @foreach (var lot in Model)
+    {
+        string heading = "Heading" + lot.LotID;
+        string collapseID = "Collapse" + lot.LotID;
+        string lotLocation=lot.LatLong;
+        string searchLocation="35.007410,-78.956711";//search/my location, collected from user at site visit
+        string getRequest = $"https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins={searchLocation}&destinations={lotLocation}&key={ApiKey}";
+
+
+
+        <div class="card">
+            <div class="card-header" id=@heading>
+                <h5 class="mb-0">
+                    <button class="btn btn-link" data-toggle="collapse" data-target=#@collapseID aria-expanded="true" aria-controls=@collapseID>
+                        @lot.LotName
+                    </button>
+                </h5>
+            </div>
+
+            <div id=@collapseID class="collapse" aria-labelledby=@heading data-parent="#accordion">
+                <div class="card-body">
+                    @((int)(((double)lot.NumOfOccupants / lot.NumOfSpaces) * 100))% Full
+                    @getRequest
+
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
