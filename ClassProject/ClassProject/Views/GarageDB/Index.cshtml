@@ -9,6 +9,9 @@
 
     ViewBag.Title = "All Garages";
     string ApiKey = "AIzaSyCDUT350-nATdF2MA_ONI_l_1MYk7NQEQk ";//enter your google API key here
+    //test if location exists, if so, set searchLocation to location, else
+    
+    string searchLocation="35.007410,-78.956711";//search/my location, collected from user at site visit
 }
 
 
@@ -20,7 +23,6 @@
         string heading = "Heading" + lot.LotID;
         string collapseID = "Collapse" + lot.LotID;
         string lotLocation=lot.LatLong;
-        string searchLocation="35.007410,-78.956711";//search/my location, collected from user at site visit
         string getRequest = $"https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins={searchLocation}&destinations={lotLocation}&key={ApiKey}";
 
 

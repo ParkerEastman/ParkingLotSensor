@@ -1,0 +1,60 @@
+﻿<body>
+    <p id="demo">Click the button to get your position:</p>
+    <button onclick="getLocation()">Get your Location</button>
+    <div id="mapholder"></div>
+    <script type="text/javascript">
+    var x = document.getElementById("demo");
+
+	function getLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition, showError);
+        }
+        else { x.innerHTML = "Geolocation is not supported by this browser."; }
+    }
+
+    function showPosition(position) {
+        var latlondata =
+		  { 'Lat' : position.coords.latitude,
+		    'Lon' : position.coords.longitude };
+		sendLatLong(latlondata);
+    }
+
+        function sendLatLong(latlon)
+        {
+		var xhttp = new XMLHttpRequest();
+		xhttp.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+			document.getElementById("demo").innerHTML = this.responseText;
+			}
+		};
+
+		xhttp.open("POST", "/Search/DisplayLocation", true);
+		xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		xhttp.send(JSON.stringify(latlon));
+	    }
+
+    function showError(error) {
+        if (error.code == 1) {
+            x.innerHTML = "User denied the request for Geolocation."
+        }
+        else if (err.code == 2) {
+            x.innerHTML = "Location information is unavailable."
+        }
+        else if (err.code == 3) {
+            x.innerHTML = "The request to get user location timed out."
+        }
+        else {
+            x.innerHTML = "An unknown error occurred."
+        }
+    }
+
+    </script>
+    <form id="form1" runat="server">
+        <div>
+
+        </div>
+
+    </form>
+</body>
+
+ 

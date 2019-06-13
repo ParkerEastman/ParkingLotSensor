@@ -11,7 +11,7 @@ namespace ClassProject.Controllers
     {
         // GET: GarageDB
         public ActionResult Index()
-        {
+        {  
             GarageDBEntities1 context = new GarageDBEntities1();
             
             return View(context.Lots);

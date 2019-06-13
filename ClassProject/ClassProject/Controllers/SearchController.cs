@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ClassProject.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -9,9 +10,17 @@ namespace ClassProject.Controllers
     public class SearchController : Controller
     {
         // GET: Search
-        public ActionResult Index()
+        public ActionResult FindLocation()
         {
             return View();
+        }
+
+        [HttpPost]
+        //public ViewResult GetLocation(Location myLocation)
+        //return View($"{myLocation.Lat}, {myLocation.Long}");
+        public ActionResult DisplayLocation(Location location)
+        {
+            return View(location);
         }
     }
 }
