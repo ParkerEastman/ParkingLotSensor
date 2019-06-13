@@ -18,7 +18,7 @@ namespace ClassProject.Controllers
         [HttpPost]
         //public ViewResult GetLocation(Location myLocation)
         //return View($"{myLocation.Lat}, {myLocation.Long}");
-        public ActionResult DisplayLocation(Location location)
+        public ActionResult DisplayLocation(string location)
         {
             return View(location);
         }

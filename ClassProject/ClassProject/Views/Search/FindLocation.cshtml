@@ -14,8 +14,11 @@
 
     function showPosition(position) {
         var latlondata =
-		  { 'Lat' : position.coords.latitude,
-		    'Lon' : position.coords.longitude };
+            position.coords.latitude +
+            ","
+            +
+            position.coords.longitude
+    
 		sendLatLong(latlondata);
     }
 
@@ -28,9 +31,9 @@
 			}
 		};
 
-		xhttp.open("POST", "/Search/DisplayLocation", true);
+		xhttp.open("POST", "/Search/DisplayLocation", false);
 		xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-		xhttp.send(JSON.stringify(latlon));
+		xhttp.send(latlon);
 	    }
 
     function showError(error) {
