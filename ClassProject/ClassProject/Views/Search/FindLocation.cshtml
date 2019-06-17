@@ -31,9 +31,7 @@
 			}
 		};
 
-		xhttp.open("POST", "/Search/DisplayLocation", false);
-		xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-		xhttp.send(latlon);
+            $.post("/Search/DisplayLocation", {location: latlon}) //trying to post to Shared/{latlong}
 	    }
 
     function showError(error) {
