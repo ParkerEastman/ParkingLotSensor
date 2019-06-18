@@ -8,10 +8,11 @@
     /**/
 
     ViewBag.Title = "All Garages";
+    ViewBag.Api = "AIzaSyCDUT350-nATdF2MA_ONI_l_1MYk7NQEQk";
     string ApiKey = "AIzaSyCDUT350-nATdF2MA_ONI_l_1MYk7NQEQk ";//enter your google API key here
     //test if location exists, if so, set searchLocation to location, else
     
-    string searchLocation="35.007410,-78.956711";//search/my location, collected from user at site visit
+   string searchLocation="35.007410,-78.956711";//search/my location, collected from user at site visit
 }
 
 
@@ -38,6 +39,7 @@
 
             <div id=@collapseID class="collapse" aria-labelledby=@heading data-parent="#accordion">
                 <div class="card-body">
+                    @(lot.NumOfSpaces - lot.NumOfOccupants) Free Spaces
                     @((int)(((double)lot.NumOfOccupants / lot.NumOfSpaces) * 100))% Full
                     @getRequest
 

@@ -8,6 +8,7 @@ namespace ClassProject.Models
     public class Location
     {
         public string Coords { get; set; }
+
     }
 
 }
