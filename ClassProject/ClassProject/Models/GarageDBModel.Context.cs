@@ -28,6 +28,7 @@ namespace ClassProject.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public string userLocation { get; set; }  //This should probably be deleted...
         public DbSet<Client> Clients { get; set; }
         public DbSet<Lot> Lots { get; set; }
         public DbSet<sysdiagram> sysdiagrams { get; set; }

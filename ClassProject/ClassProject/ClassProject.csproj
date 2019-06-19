@@ -143,6 +143,7 @@
     <Compile Include="Models\Client.cs">
       <DependentUpon>GarageDBModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Directions.cs" />
     <Compile Include="Models\GarageDBModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -159,6 +160,7 @@
       <DependentUpon>GarageDBModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\Location.cs" />
+    <Compile Include="Models\LocationReturn.cs" />
     <Compile Include="Models\Lot.cs">
       <DependentUpon>GarageDBModel.tt</DependentUpon>
     </Compile>

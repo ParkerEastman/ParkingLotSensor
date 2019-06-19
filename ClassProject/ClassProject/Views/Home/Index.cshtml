@@ -1,7 +1,13 @@
-﻿
+﻿@model ClassProject.Models.Directions
+
+
 @{
     ViewBag.Title = "Search";
+    string mapUrl = $"https://www.google.com/maps/embed/v1/directions?origin={Model.Origin}&destination={Model.Destination}&key=AIzaSyCDUT350-nATdF2MA_ONI_l_1MYk7NQEQk";
 }
 
-<h2>Search</h2>
+<h2>Your Route</h2>
+
+<iframe width="1000" height="700" frameborder="0" style="border:0 solid pink"
+        src="@mapUrl" allowfullscreen></iframe>
 

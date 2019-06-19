@@ -1,17 +1,45 @@
-﻿@model ClassProject.Models.Location
+﻿
+@using ClassProject.Models
+@model ClassProject.Models.GarageDBEntities1
 
 @{
-    ViewBag.Title = "DisplayLocation";
-
-    ViewBag.Api = "AIzaSyCDUT350 - nATdF2MA_ONI_l_1MYk7NQEQk ";
+    IEnumerable<Lot> Lots = Model.Lots;
+    string ApiKey = "AIzaSyCDUT350-nATdF2MA_ONI_l_1MYk7NQEQk";
 }
 
 
+<p>@Model.userLocation</p>
 
-<p>@Model.Coords</p>
-<p>@ViewBag.Api</p>
+@foreach (var lot in Lots)
+{
 
+    string heading = "Heading" + lot.LotID;
+    string collapseID = "Collapse" + lot.LotID;
+    string lotLocation = lot.LatLong;
+    string getRequest = $"https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins={Model.userLocation}&destinations={lotLocation}&key={ApiKey}";
 
+    ApiReturn locationResponse = new ApiReturn();
+    var locationObj = locationResponse.loadApi(getRequest);
+    string mapReq = $"/Home/Index?Origin={Model.userLocation}&Destination={lot.LatLong}";
 
+    <div class="card">
+        <div class="card-header" id=@heading>
+            <h5 class="mb-0">
+                <button class="btn btn-link" data-toggle="collapse" data-target=#@collapseID aria-expanded="true" aria-controls=@collapseID>
+                    @lot.LotName
+                </button>
+            </h5>
+        </div>
 
+        <div id=@collapseID class="collapse" aria-labelledby=@heading data-parent="#accordion">
+            <div class="card-body">
+                <p>Occupancy: @(lot.NumOfSpaces - lot.NumOfOccupants) Free Spaces </p>
+                <p>Capacity: @((int)(((double)lot.NumOfOccupants / lot.NumOfSpaces) * 100))% Full </p>
+                <p>Distance: @locationObj.rows[0].elements[0].distance.text</p>
+                <p>Trip Length: @locationObj.rows[0].elements[0].duration.text</p>
+                <p><a class="btn btn-default" href=@mapReq role="button">Map it!</a></p>  @*call to mapping controller w/ google maps iframe*@
 
+            </div>
+        </div>
+    </div>
+}

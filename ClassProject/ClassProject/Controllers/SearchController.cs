@@ -16,11 +16,12 @@ namespace ClassProject.Controllers
         }
 
         [HttpPost]
-        //public ViewResult GetLocation(Location myLocation)
-        //return View($"{myLocation.Lat}, {myLocation.Long}");
         public ActionResult DisplayLocation(Location location)
         {
-            return PartialView(location);
+            GarageDBEntities1 context = new GarageDBEntities1();
+            context.userLocation = location.Coords;
+            return PartialView(context);
+
         }
 
 
