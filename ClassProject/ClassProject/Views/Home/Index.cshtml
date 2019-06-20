@@ -1,13 +1,63 @@
-﻿@model ClassProject.Models.Directions
+﻿<body>
+    <p id="demo">Click the button to get your position:</p>
+    <button onclick="getLocation()">Get your Location</button>
+    <div id="mapholder"></div>
+    <script type="text/javascript">
+        var x = document.getElementById("demo");
 
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition, showError);
+            }
+            else { x.innerHTML = "Geolocation is not supported by this browser."; }
+        }
 
-@{
-    ViewBag.Title = "Search";
-    string mapUrl = $"https://www.google.com/maps/embed/v1/directions?origin={Model.Origin}&destination={Model.Destination}&key=AIzaSyCDUT350-nATdF2MA_ONI_l_1MYk7NQEQk";
-}
+        function showPosition(position) {
+            var latlondata =
+                position.coords.latitude +
+                ","
+                +
+                position.coords.longitude
 
-<h2>Your Route</h2>
+            sendLatLong(latlondata);
+        }
 
-<iframe width="1000" height="700" frameborder="0" style="border:0 solid pink"
-        src="@mapUrl" allowfullscreen></iframe>
+        function sendLatLong(latlon) {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById("demo").innerHTML = this.responseText;
+                }
+            };
+
+            $.post("/Home/DisplayLocation", { Coords: latlon }, function (data) {
+                $("#myLocation").html(data);
+            }) //trying to post to Shared/{latlong}
+        }
+
+        function showError(error) {
+            if (error.code == 1) {
+                x.innerHTML = "User denied the request for Geolocation."
+            }
+            else if (err.code == 2) {
+                x.innerHTML = "Location information is unavailable."
+            }
+            else if (err.code == 3) {
+                x.innerHTML = "The request to get user location timed out."
+            }
+            else {
+                x.innerHTML = "An unknown error occurred."
+            }
+        }
+
+    </script>
+
+    <div id="myLocation"></div>
+    <form id="form1" runat="server">
+        <div>
+
+        </div>
+
+    </form>
+</body>
 

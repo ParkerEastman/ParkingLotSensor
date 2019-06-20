@@ -15,10 +15,30 @@ namespace ClassProject.Controllers
         //    return View();
         //}
 
-        public ActionResult Index(string Origin, string Destination)
+        public ActionResult Search(string Origin, string Destination, string Name)
         {
-            Directions directions = new Directions(Origin, Destination);
+            string[] temp = Name.Split('\'');
+            Name = temp[1];
+            Directions directions = new Directions(Origin, Destination, Name);
             return View(directions);
         }
+
+
+        // GET: Search
+        public ActionResult Index()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult DisplayLocation(Location location)
+        {
+            GarageDBEntities1 context = new GarageDBEntities1();
+            context.userLocation = location.Coords;
+            return PartialView(context);
+
+        }
+
+        
     }
 }

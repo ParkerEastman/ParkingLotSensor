@@ -9,10 +9,12 @@ namespace ClassProject.Models
     {
         public string Origin { get; set; }
         public string Destination { get; set; }
-        public Directions(string origin, string destination)
+        public string Name { get; set; }
+        public Directions(string origin, string destination, string name)
         {
             this.Origin = origin;
             this.Destination = destination;
+            this.Name = name;
         }
 
 
