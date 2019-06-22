@@ -9,19 +9,22 @@ namespace ClassProject.Controllers
 {
     public class HomeController : Controller
     {
-        //// GET: Home
-        //public ActionResult Index()
-        //{
-        //    return View();
-        //}
 
         public ActionResult Search(string Origin, string Destination, string Name)
         {
-            string[] temp = Name.Split('\'');
-            Name = temp[1];
+
             Directions directions = new Directions(Origin, Destination, Name);
             return View(directions);
         }
+        
+        [HttpPost]
+        [ValidateInput(false)]
+        public PartialViewResult SearchPost(Directions directions)
+        {
+          //takes json at user click, model binds to directions obj, calls to mapping api in view
+            return PartialView(directions);
+        }
+
 
 
         // GET: Search
@@ -31,12 +34,12 @@ namespace ClassProject.Controllers
         }
 
         [HttpPost]
-        public ActionResult DisplayLocation(Location location)
+        public ActionResult DisplayLocation(Location location) //latlong of user location modifies dbcontext, lazy workaround for viewmodel
         {
             GarageDBEntities1 context = new GarageDBEntities1();
             context.userLocation = location.Coords;
             return PartialView(context);
-
+            
         }
 
         

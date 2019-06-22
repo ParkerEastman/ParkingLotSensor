@@ -7,6 +7,7 @@ namespace ClassProject.Models
 {
     public class Directions
     {
+        public Directions() {; }
         public string Origin { get; set; }
         public string Destination { get; set; }
         public string Name { get; set; }

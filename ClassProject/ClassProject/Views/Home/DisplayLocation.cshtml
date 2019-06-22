@@ -5,15 +5,18 @@
 @{
     IEnumerable<Lot> Lots = Model.Lots;
     string ApiKey = "AIzaSyCDUT350-nATdF2MA_ONI_l_1MYk7NQEQk";
+    string location = Model.userLocation;
 }
 
 
 @*<p>@Model.userLocation</p>*@
+<div id="nonsense">
 <h2>Available Lots</h2>
 
 @foreach (var lot in Lots)
 {
 
+    Directions directions = new Directions(location, lot.LatLong, Html.Encode(lot.LotName));
     string heading = "Heading" + lot.LotID;
     string collapseID = "Collapse" + lot.LotID;
     string lotLocation = lot.LatLong;
@@ -21,12 +24,13 @@
 
     ApiReturn locationResponse = new ApiReturn();
     var locationObj = locationResponse.loadApi(getRequest);
-    string mapReq = $"/Home/Search?Origin={Model.userLocation}&Destination={lot.LatLong}&Name={lot.LotName}";
+    //string mapReq = $"/Home/Search?Origin={Model.userLocation}&Destination={lot.LatLong}&Name={lot.LotName}";
 
+    
     <div class="card">
         <div class="card-header" id=@heading>
             <h5 class="mb-0">
-                <button class="btn btn-link" data-toggle="collapse" data-target=#@collapseID aria-expanded="true" aria-controls=@collapseID>
+                <button class="btn btn-info" data-toggle="collapse" data-target=#@collapseID aria-expanded="true" aria-controls=@collapseID>
                     @lot.LotName
                 </button>
             </h5>
@@ -38,9 +42,17 @@
                 <p>Capacity: @((int)(((double)lot.NumOfOccupants / lot.NumOfSpaces) * 100))% Full </p>
                 <p>Distance: @locationObj.rows[0].elements[0].distance.text</p>
                 <p>Trip Length: @locationObj.rows[0].elements[0].duration.text</p>
-                <p><a class="btn btn-default" href=@mapReq role="button">Map it!</a></p>  @*call to mapping controller w/ google maps iframe*@
+                @*@*<p><a class="btn btn-default" href="/Home/SearchPost" role="button" onclick="$.post('/Home/SearchPost', {Origin: @directions.Origin, Destination: @directions.Destination, Name: @directions.Name})">Map it!</a></p>  @*call to mapping controller w/ google maps iframe*@
+                @*<p><a class="btn btn-default" href="/Home/SearchPost" role="button" onclick="$.post('/Home/SearchPost', {Origin: @directions.Origin, Destination: @directions.Destination, Name: @directions.Name})"></a></p>*@
+                <button class="btn-default" onclick="$.post('@Url.Action("SearchPost", "Home")', {Origin: '@directions.Origin', Destination: '@directions.Destination', Name: '@directions.Name'}, function (data) {
+                $('#nonsense').html(data);
+                })">
+                    Map it!
+                </button>
 
+            
             </div>
         </div>
     </div>
 }
+</div>
